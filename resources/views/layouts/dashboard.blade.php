@@ -5,23 +5,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+
+    <!-- Animation -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css"
-          integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Freehand&family=Noto+Sans+Devanagari:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+
+    <!-- Sidebar/UX Styles -->
+    <style>
+        .list-group-item:hover,
+        .accordion-button:hover {
+            background-color: #f1f1f1 !important;
+            color: #000 !important;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #e2e6ea;
+            box-shadow: inset 0 -2px 0 #4ca1af;
+        }
+
+        .active-link {
+            background-color: #d1ecf1 !important;
+            font-weight: bold;
+        }
+
+        #search_box:focus {
+            box-shadow: 0 0 5px 2px #4ca1af;
+            transition: 0.2s ease-in-out;
+        }
+
+        .btn[title] {
+            position: relative;
+        }
+
+        .accordion-collapse {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        .accordion-collapse.show {
+            max-height: 500px; /* Adjust as needed depending on content */
+        }
+    </style>
 </head>
 
 <body>
 @include('sweetalert::alert')
+
 <div class="container-fluid">
     <div class="nav-bar row">
         <div class="Title_name">
@@ -29,65 +78,100 @@
                 <img src="{{asset('images/prastish_logo.png')}}" alt="logo"
                      style="margin-top:-12px; height: 70px; width: 135px;">
             </a>
-            <span><a href="{{ route('prashtish.logout') }}" class="btn btn-logout"
-                     style="float: right; margin-top: 4px;" id="logout"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></span>
+            <span>
+                <a href="{{ route('prashtish.logout') }}"
+                   class="btn btn-logout"
+                   style="float: right; margin-top: 4px;"
+                   id="logout"
+                   data-bs-toggle="tooltip"
+                   title="Click to log out">
+                   <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                </a>
+            </span>
         </div>
     </div>
+
     <div class="row">
-        <div class="aside_bar col-md-3">
+        <!-- Sidebar -->
+        <div class="aside_bar col-md-3"
+             style="background: linear-gradient(135deg, #2c3e50, #4ca1af); min-height: 100vh; padding-top: 30px; color: white;">
             <div class="side_navbar row justify-content-center">
-                <div class="col-md-12"
-                     style="width: 84%; margin-left:22px;margin-bottom: 20px;padding: 10px; color:#ffffff; font-size: 20px;">
-                    Welcome <span style="font-size: 30px">{{ Auth::user()->name }}</span>
+                <div class="col-md-12 text-center mb-4" style="padding: 10px;">
+                    <div style="font-size: 18px;">Welcome</div>
+                    <div style="font-size: 28px; font-weight: bold;">{{ Auth::user()->name }}</div>
                 </div>
-                <hr style="color: #ffffff; margin-top: -20px; margin-bottom: 30px">
-                <a href="{{ route('homepage') }}" class="btn btn-rounded btn-sm btn-primary col-md-8 p-2">Home</a>
-                <div class="accordion col-md-8" id="side_navbar_accordion">
-                    <div class="accordion-item">
+
+                <hr style="border-top: 1px solid #ffffff55; width: 80%; margin: 0 auto 25px auto;">
+
+                <!-- Home -->
+                <div class="col-10">
+                    <div class="list-group mb-3">
+                        <a href="{{ route('homepage') }}" class="list-group-item list-group-item-action text-dark fw-bold">
+                            <i class="fa-solid fa-house me-1"></i> Home
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Accordion -->
+                <div class="accordion col-10" id="side_navbar_accordion">
+
+                    <!-- My Song Book -->
+                    <div class="accordion-item bg-transparent border-0 mb-3">
                         <h2 class="accordion-header" id="my_song_book">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#song_book_list" aria-expanded="true"
-                                    aria-controls="song_book_list">
-                                My Song Book
+                            <button class="accordion-button collapsed bg-light text-dark fw-bold rounded" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#song_book_list"
+                                    aria-expanded="false" aria-controls="song_book_list">
+                                <i class="fa-solid fa-music me-1"></i> My Song Book
                             </button>
                         </h2>
-                        <div id="song_book_list" class="accordion-collapse collapse show"
+                        <div id="song_book_list" class="accordion-collapse collapse"
                              aria-labelledby="my_song_book" data-bs-parent="#side_navbar_accordion">
                             <div class="accordion-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item"><a href="{{ route('lyrics.list') }}">My Song
-                                            Book</a></li>
-                                    <li class="list-group-item"><a href="{{ route('lyrics.add') }}">Add New
-                                            Lyrics</a>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="{{ route('lyrics.list') }}" class="text-decoration-none text-dark">📚 View Song Book</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="{{ route('lyrics.add') }}" class="text-decoration-none text-dark">
+                                            <i class="fa-solid fa-plus me-1 fw-bolder"></i> Add New Lyrics
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
+
+                    <!-- Song Categories -->
+                    <div class="accordion-item bg-transparent border-0 mb-3">
                         <h2 class="accordion-header" id="my_song_category">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#song_category_list" aria-expanded="false"
-                                    aria-controls="song_category_list">
-                                Song Categories
+                            <button class="accordion-button collapsed bg-light text-dark fw-bold rounded" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#song_category_list"
+                                    aria-expanded="false" aria-controls="song_category_list">
+                                <i class="fa-solid fa-folder-tree me-1"></i> Song Categories
                             </button>
                         </h2>
                         <div id="song_category_list" class="accordion-collapse collapse"
                              aria-labelledby="my_song_category" data-bs-parent="#side_navbar_accordion">
                             <div class="accordion-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item"><a href="{{ route('categories.list') }}">All Song
-                                            Categories</a></li>
-                                    <li class="list-group-item"><a href="{{ route('category.add') }}">Add New
-                                            Category</a>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="{{ route('categories.list') }}" class="text-decoration-none text-dark">📋 All Categories</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action">
+                                        <a href="{{ route('category.add') }}" class="text-decoration-none text-dark">
+                                            <i class="fa-solid fa-plus me-1 fw-bolder"></i> Add New Category
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                </div> <!-- Accordion End -->
             </div>
         </div>
+
+        <!-- Content Area -->
         <div class="col-md-9 content-area" style="background-color: #E5D9F2">
             <div class="row search-box-div mt-md-4" style="justify-content: center;">
                 <div class="col-md-6 p-md-3">
@@ -98,85 +182,81 @@
                     <a href="" class="btn btn-success" id="search_song">Search</a>
                 </div>
             </div>
+
             @if (session('success'))
                 <div class="alert alert-success">
-                    {{ session('success') }} <span class="btn btn-close float-end mt-md-1 close-button"
-                                                   style="font-size: 10px"></span>
+                    {{ session('success') }}
+                    <span class="btn btn-close float-end mt-md-1 close-button" style="font-size: 10px"></span>
                 </div>
             @endif
+
             @if (session('error'))
                 <div class="alert alert-danger">
-                    {{ session('error') }}<span class="btn btn-close float-end mt-md-1 close-button"
-                                                style="font-size: 10px"></span>
+                    {{ session('error') }}
+                    <span class="btn btn-close float-end mt-md-1 close-button" style="font-size: 10px"></span>
                 </div>
             @endif
+
             @yield('content-area')
+
             <div class="overlay" id="overlay"></div>
             <div class="loader" id="loader"></div>
+
             <div class="final_lyrics_view"
                  style="position: relative; top: 29px; height: 500px; width: 100%; border: 2px solid black; overflow: auto; display: none;">
                 <div class="row p-md-3">
                     <div class="col-md-12">
-                        <ul id="records-list" class="list-group">
-
-                        </ul>
+                        <ul id="records-list" class="list-group"></ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</body>
-<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 
-{{-- <script src="{{ asset('js/sweetalert.min.js') }}"></script> --}}
+<!-- JS Dependencies -->
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Custom Script -->
 <script>
     $(document).ready(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+
         $('.close-button').on('click', function () {
-            $('.alert').css("display", "none");
+            $('.alert').hide();
         });
 
+        // Highlight active link
+        $('.list-group-item').on('click', function () {
+            $('.list-group-item').removeClass('active-link');
+            $(this).addClass('active-link');
+        });
+
+        // Search button and enter key
         $('#search_song').on('click', function (event) {
             event.preventDefault();
-            var searched_for = $('#search_box').val().trim(); // Trim whitespace from input
+            let searched_for = $('#search_box').val().trim();
             if (searched_for !== '') {
                 $('#overlay, #loader').show();
                 $.ajax({
                     url: '{{ route('search.song') }}',
                     type: 'GET',
                     dataType: 'json',
-                    data: {
-                        searched_term: searched_for // Simplified key name
-                    },
+                    data: { searched_term: searched_for },
                     success: function (response) {
-                        setTimeout(function () {
-                            $('#overlay, #loader')
-                                .hide(); // Hide overlay and loader after 1 second
-                        }, 1000);
-                        if (response != '') {
-                            $('.recently-uploaded-main').css('display', 'none');
-                            $('.main-page-lyrics').css('display', 'none');
-                            $('.song_book').css('display', 'none');
-                            $('.final_lyrics_view').css('display', 'block');
+                        setTimeout(() => $('#overlay, #loader').hide(), 1000);
+                        if (response && response.length) {
+                            $('.recently-uploaded-main, .main-page-lyrics, .song_book').hide();
+                            $('.final_lyrics_view').show();
                             $('#records-list').empty();
                             $.each(response, function (index, record) {
-                                console.log(record);
-                                $('#records-list').append(
-                                    `<li class="list-group-item" id="list_song_${record.lyrics_id}">
-                                <h4>
-                                    <a href="{{ url('main-page/lyrics') }}/${record.lyrics_id}" class="song-link" data-id="${record.lyrics_id}">${record.lyrics_title}</a>
-                                </h4>
-                            </li><hr>`
-                                );
+                                $('#records-list').append(`
+                                    <li class="list-group-item" id="list_song_${record.lyrics_id}">
+                                        <h4><a href="{{ url('main-page/lyrics') }}/${record.lyrics_id}" class="song-link" data-id="${record.lyrics_id}">${record.lyrics_title}</a></h4>
+                                    </li><hr>
+                                `);
                             });
                         } else {
                             Swal.fire({
@@ -188,61 +268,37 @@
                         }
                     },
                     error: function (xhr, status, error) {
-                        // Handle errors
                         console.error('AJAX Error:', status, error);
                     }
                 });
             } else {
                 Swal.fire({
                     title: "Please Enter the Lyrics Name First....",
-                    showClass: {
-                        popup: `
-                          animate__animated
-                          animate__fadeInUp
-                          animate__faster
-                          `
-                    },
-                    hideClass: {
-                        popup: `
-                          animate__animated
-                          animate__fadeOutDown
-                          animate__faster
-                        `
-                    }
+                    showClass: { popup: 'animate__animated animate__fadeInUp animate__faster' },
+                    hideClass: { popup: 'animate__animated animate__fadeOutDown animate__faster' }
                 });
             }
         });
 
-        // Delegate click event for dynamically added elements
-        $('#records-list').on('click', '.song-link', function (event) {
-            event.preventDefault();
-            var lyricsId = $(this).data('id');
-            // For example, redirect to the lyrics page or perform any other action
-            window.location.href = $(this).attr('href');
+        $('#search_box').on('keypress', function (e) {
+            if (e.which === 13) {
+                $('#search_song').click();
+            }
         });
-
 
         $('#search_box').on('input', function () {
             if ($(this).val() === '') {
-                $('.recently-uploaded-main').css('display', 'block');
-                $('.final_lyrics_view').css('display', 'none');
+                $('.recently-uploaded-main').show();
+                $('.final_lyrics_view').hide();
             }
         });
 
-
-        $('#maximize-btn').on('click', function () {
-            var elem = $('#full-screen-element')[0]; // Get the element to maximize
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.msRequestFullscreen) {
-                elem.msRequestFullscreen();
-            } else if (elem.mozRequestFullScreen) {
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen();
-            }
+        $('#records-list').on('click', '.song-link', function (event) {
+            event.preventDefault();
+            window.location.href = $(this).attr('href');
         });
+
     });
 </script>
-
+</body>
 </html>
