@@ -168,3 +168,93 @@ a {
 .card-header{
     background-color: #250036;
 }
+
+/* Song book css*/
+.song_book .btn {
+    transition: 0.2s ease-in-out;
+}
+
+.song_book .btn:hover {
+    transform: scale(1.05);
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background-color: #4ca1af;
+    border-radius: 4px;
+}
+
+/*Status label css*/.status-toggle {
+                        position: relative;
+                        display: inline-block;
+                        width: 50px;
+                        height: 24px;
+                    }
+
+.status-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.status-toggle input:checked + .toggle-slider {
+    background-color: #28a745; /* Green for active */
+}
+
+.status-toggle input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.badge-active {
+    background: linear-gradient(135deg, #28a745, #5cb85c);
+    color: white;
+}
+
+.badge-inactive {
+    background: linear-gradient(135deg, #ffc107, #f0ad4e);
+    color: white;
+}
+
+.status-icon {
+    margin-right: 8px;
+    font-size: 14px;
+}
+

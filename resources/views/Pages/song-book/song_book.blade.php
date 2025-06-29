@@ -7,15 +7,17 @@
 @section('content-area')
 
     <div class="margin-top-25 song_book">
-        <hr>
-        <h4>Song Book <span class="float-end"><a href="{{route('lyrics.add')}}" class="btn btn-outline-dark"
-                                                 style="margin-top: -10px; margin-right: 10px">Add Song Lyrics</a></span>
-        </h4>
-        <hr>
-        <div style="height: 450px; overflow: auto">
-            <table class="table table-striped table-bordered margin-top-25">
-                <thead>
-                <tr class="table-primary">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">🎵 Song Book</h4>
+            <a href="{{ route('lyrics.add') }}" class="btn btn-outline-dark">
+                <i class="fa-solid fa-plus me-1"></i> Add Song Lyrics
+            </a>
+        </div>
+
+        <div class="table-responsive border rounded shadow-sm" style="max-height: 500px; overflow-y: auto;">
+            <table class="table table-hover table-striped align-middle mb-0">
+                <thead class="table-primary text-center">
+                <tr>
                     <th>#</th>
                     <th>Song Title</th>
                     <th>Category</th>
@@ -24,22 +26,33 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($all_lyrics AS $lyrics)
+                @forelse($all_lyrics as $lyrics)
                     <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$lyrics['lyrics_title']}}</td>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <td>{{ $lyrics['lyrics_title'] }}</td>
                         <td>{!! $lyrics['cat_name'] !!}</td>
                         <td>{!! getStatusLabel($lyrics['lyrics_status']) !!}</td>
-                        <td class="text-md-center">
-                            <a href="{{route('lyrics.view',$lyrics['lyrics_id'])}}" class="btn btn-info">View</a>
-                            <a href="{{route('lyrics.edit',$lyrics['lyrics_id'])}}" class="btn btn-primary">Edit</a>
-                            <a href="{{route('lyrics.delete',$lyrics['lyrics_id'])}}" class="btn btn-danger">Delete</a>
+                        <td class="text-center">
+                            <a href="{{ route('lyrics.view', $lyrics['lyrics_id']) }}" class="btn btn-sm btn-info me-1">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a href="{{ route('lyrics.edit', $lyrics['lyrics_id']) }}" class="btn btn-sm btn-primary me-1">
+                                <i class="fa fa-pen"></i>
+                            </a>
+                            <a href="{{ route('lyrics.delete', $lyrics['lyrics_id']) }}" class="btn btn-sm btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this song?')">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">No songs found.</td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
-
     </div>
+
 @endsection

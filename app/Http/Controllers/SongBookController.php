@@ -43,7 +43,12 @@ class SongBookController extends Controller
         $lyrics->lyrics_status = $request->input('lyrics_status');
         $lyrics->lyrics_worshipper_name = $request->input('worshipper_name');
         $lyrics->lyrics_words = $request->input('lyrics');
-        $lyrics->lyrics_thumbnail = $request->input('thumbnail');
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/thumbnails'), $fileName);
+            $lyrics->lyrics_thumbnail = $fileName;
+        }
         $lyrics->created_at = $current_date_time;
         $lyrics->save();
 

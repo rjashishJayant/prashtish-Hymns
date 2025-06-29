@@ -4,11 +4,17 @@ function getStatusLabel(string $status): string
     $retval = '';
     if (!empty($status)) {
         switch ($status) {
-            case 'inactive':
-                $retval = '<span class="bg-warning p-md-1 rounded-5 text-light label">Inactive</span>';
+            case '1':
+                $retval = '<span class="status-badge badge-active d-inline-flex align-items-center">
+                        <i class="fas fa-check-circle status-icon me-2"></i>
+                        <span class="status-text">Active</span>
+                    </span>';
                 break;
-            case 'active':
-                $retval = '<span class="bg-success p-md-1 rounded-5 text-light label">Active</span>';
+            case 2:
+                $retval = '<span class="status-badge badge-inactive d-inline-flex align-items-center">
+                        <i class="fas fa-times-circle status-icon me-2"></i>
+                        <span class="status-text">Inactive</span>
+                    </span>';
                 break;
         }
     }
