@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background: #101010;
+    color: aliceblue;
+    font-family: "Freehand", cursive;
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing: 7px;
+    padding: 10px;
+
+    p {
+        margin-top: -20px;
+        text-indent: 0.7em;
+    }
+}
+
+nav {
+    background: #392c2f;
+
+    ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        li {
+            margin: 3px;
+            /* background: #000; */
+
+            a {
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+        }
+    }
+}
+
+aside {
+    height: 100%;
+    background: #5a4545f9;
+
+    h3 {
+        padding-top: 10px;
+        text-align: center;
+        color: antiquewhite;
+        font-family: cursive
+    }
+
+    ul {
+        margin-top: 30px;
+        list-style-type: none;
+
+        li a {
+            text-decoration: none;
+            color: #101010;
+        }
+    }
+}
+
+.nav-link {
+    color: #faf9f9;
+}
+
+.wrapper {
+    width: 100%;
+    height: 860px;
+    /* background: #000; */
+}
+
+.image-card {
+    width: 300px;
+    height: 90px;
+    background: #ede4e4;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+.latest_images {
+    width: 50%;
+    height: 90px;
+    border-radius: 15px;
+    background: #000;
+}
+
+.latest_song_name {
+    width: 40%;
+    margin-left: 15px;
+}
+
+.trendings-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.trendings {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    background: #000;
+    flex-wrap: wrap;
+}
+
+footer {
+    background: #1d1c1c;
+    height: 100px;
+    padding: 10px;
+
+    ul {
+        text-align: center;
+        list-style-type: none;
+
+        li {
+            margin-bottom: 3px;
+
+            a {
+                text-decoration: none;
+                color: rgb(176, 199, 218);
+            }
+        }
+    }
+
+    p {
+        text-align: center;
+        color: #ede4e4;
+        margin-bottom: 10px;
+    }
+}

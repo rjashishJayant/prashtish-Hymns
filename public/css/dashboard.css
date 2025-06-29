@@ -1,0 +1,170 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.log_in_gif {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../images/logg.gif') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.nav-bar {
+    padding: 14px;
+    background-color: #0a71de;
+    display: flex;
+    height: 70px;
+}
+
+.Title_name {
+    font-size: xx-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+}
+
+.aside_bar {
+    height: 681px;
+    background: #153fa2;
+}
+
+.margin-top-25 {
+    margin-top: 25px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
+}
+
+.side_navbar {
+    margin-top: 100px;
+}
+
+.main-footer {
+    position: relative;
+    background-color: black;
+    padding: 4px;
+    color: antiquewhite;
+    text-align: center;
+    bottom: -547px;
+}
+
+a {
+    text-decoration: none;
+    color: #1a1d20;
+}
+
+.accordion-button {
+    color: #cbd0d5;
+    background-color: #212529;
+}
+
+.table-primary {
+    --bs-table-bg: #6696de;
+}
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.vertical-rule {
+    border-right: 1px solid #ccc; /* Adjust color and thickness as needed */
+    height: 100px; /* Adjust height of the rule */
+    margin: 0 10px; /* Adjust spacing around the rule */
+}
+
+
+.recently-uploaded {
+    width: 100%;
+}
+
+
+.recently-uploaded-box {
+    margin-bottom: 25px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.overlay {
+    display: none; /* Hide overlay by default */
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(35, 34, 34, 0.5); /* Black background with transparency */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+.loader {
+    display: none; /* Hide loader by default */
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #1d08f3; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    margin-top: -60px;
+    margin-left: -60px;
+    z-index: 3; /* Make sure it sits above the overlay */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-login {
+    border: 1px solid #0a53be;
+}
+
+.btn-login:hover {
+    background-color: #0b0046;
+    border-bottom: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn-login:active {
+    border: 2px solid #0a53be;
+    background-color: #ffb500;
+}
+
+
+.btn-logout {
+    background-color: #7a997a;
+}
+
+.btn-logout:hover {
+    background-color: #7eb67e;
+    border: 1px solid black;
+}
+
+.main-page-lyrics {
+    margin-top: 100px;
+}
+
+.card-body {
+    background-color: #f2f2ff;
+}
+
+.card-header{
+    background-color: #250036;
+}
